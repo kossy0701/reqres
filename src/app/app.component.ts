@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { User } from './models/user';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +8,11 @@ import { User } from './models/user';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  users: User[] = [];
+  users = this.userService.users$;
 
-  constructor(private http: HttpClient) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.http
-      .get<{ data: User[] }>('https://reqres.in/api/users')
-      .subscribe((resp) => {
-        this.users = resp.data;
-      });
+    this.userService.fetchUsers();
   }
 }
