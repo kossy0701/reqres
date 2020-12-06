@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StoreService } from './store.service';
+import { UserApiService } from './user-api.service';
 import { User } from '../models/user';
 import { UserListFilter } from '../models/state';
 
@@ -11,7 +11,7 @@ import { UserListFilter } from '../models/state';
 })
 export class UserListUsecase {
 
-  constructor(private httpClient: HttpClient, private storeService: StoreService) { }
+  constructor(private storeService: StoreService, private userApiService: UserApiService) { }
 
   get users$(): Observable<User[]> {
     return this.storeService
@@ -31,10 +31,7 @@ export class UserListUsecase {
   }
 
   async fetchUsers(): Promise<void> {
-    const users = await this.httpClient
-      .get< { data: User[] }>('https://reqres.in/api/users')
-      .pipe(map(res => res.data))
-      .toPromise();
+    const users = await this.userApiService.getAllUsers();
 
     this.storeService.update(state => ({
       ...state,

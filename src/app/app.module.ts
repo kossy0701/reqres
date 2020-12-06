@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { UserListItemComponent } from './user-list-item/user-list-item.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListFilterComponent } from './user-list-filter/user-list-filter.component';
+import { UserDetailPageComponent } from './user-detail-page/user-detail-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListItemComponent,
     UserListComponent,
-    UserListFilterComponent
+    UserListFilterComponent,
+    UserDetailPageComponent
   ],
   imports: [
     BrowserModule,
